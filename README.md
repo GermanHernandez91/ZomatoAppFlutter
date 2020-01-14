@@ -1,16 +1,41 @@
-# zomato_app
+# ZomatoApp
 
-Cross-platform app that get data from zomato public api key.
+APP IN DEVELOPMENT !
 
-## Getting Started
+Cross-platform app that get data from zomato public api key. First you need to enter your post code
+and the app will search your geolocation based on your post code and it be saved. After that and
+every time you enter to the app, you will see a list of restaurants in your area.
 
-This project is a starting point for a Flutter application.
+You can also create an account using firebase and more !
 
-A few resources to get you started if this is your first Flutter project:
+THIS APP IS FOR DEVELOPMENT PURPOSES ONLY.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Features
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Get current location by geolocation
+* Authentication using firebase
+* Cross-Platform app
+* Dark mode supported
+* Integration with Zomato public api
+
+## Get Started
+
+You need to have flutter installed in your computer.
+
+```
+https://flutter.dev/docs/get-started/install
+```
+
+Clone this repository
+
+```
+git clone https://github.com/GermanHernandez91/ZomatoAppFlutter.git
+```
+
+Install dependencies
+
+```
+flutter pub get
+```
+
+Enjoy !
