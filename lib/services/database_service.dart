@@ -1,26 +1,18 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zomato_app/models/cuisine.dart';
 import 'package:zomato_app/models/restaurant.dart';
-import 'package:zomato_app/utilities/constants.dart';
+import 'package:zomato_app/utilities/networking.dart';
 
 class DatabaseService {
   static Future<List<Cuisine>> getCuisines() async {
     final List<Cuisine> cuisines = [];
+    final queryParams = await Networking.configureLocation();
+    final headers = Networking.configureHeaders();
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final queryParams = {
-      "lat": prefs.getString("lat"),
-      "lon": prefs.getString("lon"),
-    };
-
-    final uri = Uri.https(Constants.baseURL, "/api/v2.1/cuisines", queryParams);
-    final response = await http.get(uri, headers: {
-      "user-key": Constants.apiKey,
-    });
+    final uri = Networking.configureUri("/api/v2.1/cuisines", queryParams);
+    final response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
@@ -38,19 +30,11 @@ class DatabaseService {
 
   static Future<List<Restaurant>> getRestaurants() async {
     final List<Restaurant> restaurants = [];
+    final queryParams = await Networking.configureLocation();
+    final headers = Networking.configureHeaders();
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final queryParams = {
-      "lat": prefs.getString("lat"),
-      "lon": prefs.getString("lon"),
-    };
-
-    final uri =
-        Uri.https(Constants.baseURL, "/api/v2.1/collections", queryParams);
-    final response = await http.get(uri, headers: {
-      "user-key": Constants.apiKey,
-    });
+    final uri = Networking.configureUri("/api/v2.1/collections", queryParams);
+    final response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);

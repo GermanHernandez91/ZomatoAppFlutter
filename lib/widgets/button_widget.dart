@@ -20,7 +20,10 @@ class ButtonWidget extends StatelessWidget {
         onPressed: onPressed,
         color: Colors.deepPurpleAccent,
         textColor: Colors.white,
-        child: Text(buttonTitle),
+        child: Text(
+          buttonTitle,
+          style: Theme.of(context).textTheme.button,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

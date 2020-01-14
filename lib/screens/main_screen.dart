@@ -24,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _pages[_currentTabIndex],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 8,
         currentIndex: _currentTabIndex,
         onTap: (int index) {
           setState(() {
