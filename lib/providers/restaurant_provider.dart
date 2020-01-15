@@ -8,8 +8,10 @@ class RestaurantProvider with ChangeNotifier {
   List<Restaurant> get allRestaurants => _restaurants;
 
   Future<void> fetchRestaurants([int limit]) async {
-    final restaurants = await DatabaseService.getRestaurants(limit);
-    _restaurants = restaurants;
-    notifyListeners();
+    if (_restaurants.isEmpty) {
+      final restaurants = await DatabaseService.getRestaurants(limit);
+      _restaurants = restaurants;
+      notifyListeners();
+    }
   }
 }

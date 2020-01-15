@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:zomato_app/models/category.dart';
+import 'package:zomato_app/services/database_service.dart';
 
 class CategoryProvider with ChangeNotifier {
-  bool _isLoading = false;
+  List<Category> _categories = [];
 
-  bool get isLoading => _isLoading;
+  List<Category> get allCategories => _categories;
 
-  void setIsLoading(bool isLoading) => _isLoading = isLoading;
+  Future<void> fetchCategories() async {
+    if (_categories.isEmpty) {
+      final categories = await DatabaseService.getCategories();
+      _categories = categories;
+      notifyListeners();
+    }
+  }
 }

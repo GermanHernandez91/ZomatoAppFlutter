@@ -8,8 +8,10 @@ class CuisineProvider with ChangeNotifier {
   List<Cuisine> get allCuisines => _cuisines;
 
   Future<void> fetchCuisines() async {
-    final cuisines = await DatabaseService.getCuisines();
-    _cuisines = cuisines;
-    notifyListeners();
+    if (_cuisines.isEmpty) {
+      final cuisines = await DatabaseService.getCuisines();
+      _cuisines = cuisines;
+      notifyListeners();
+    }
   }
 }

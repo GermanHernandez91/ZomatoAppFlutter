@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:zomato_app/models/category.dart';
 import 'package:zomato_app/models/cuisine.dart';
 import 'package:zomato_app/models/restaurant.dart';
 import 'package:zomato_app/utilities/networking.dart';
@@ -51,6 +52,27 @@ class DatabaseService {
       return restaurants;
     } else {
       throw Exception("Failed getting restaurants");
+    }
+  }
+
+  static Future<List<Category>> getCategories() async {
+    final List<Category> categories = [];
+    final headers = Networking.configureHeaders();
+
+    final uri = Networking.configureUri("/api/v2.1/categories");
+    final response = await http.get(uri, headers: headers);
+
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      final result = Categories.fromJson(responseJson);
+
+      result.categories.forEach((item) {
+        categories.add(item.category);
+      });
+
+      return categories;
+    } else {
+      throw Exception("Failed getting categories");
     }
   }
 }

@@ -18,7 +18,7 @@ abstract class Networking {
     return {"user-key": Constants.apiKey};
   }
 
-  static Uri configureUri(String route, Map<String, dynamic> parameters) {
+  static Uri configureUri(String route, [Map<String, dynamic> parameters]) {
     return Uri.https(Constants.baseURL, route, parameters);
   }
 }
