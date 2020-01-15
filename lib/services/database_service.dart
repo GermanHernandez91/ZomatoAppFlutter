@@ -24,14 +24,18 @@ class DatabaseService {
 
       return cuisines;
     } else {
-      throw Exception("Failed getting cuisines");
+      throw Exception("Failed fetching cuisines");
     }
   }
 
-  static Future<List<Restaurant>> getRestaurants() async {
+  static Future<List<Restaurant>> getRestaurants([int limit]) async {
     final List<Restaurant> restaurants = [];
-    final queryParams = await Networking.configureLocation();
+    var queryParams = await Networking.configureLocation();
     final headers = Networking.configureHeaders();
+
+    if (limit != null) {
+      queryParams["count"] = limit.toString();
+    }
 
     final uri = Networking.configureUri("/api/v2.1/collections", queryParams);
     final response = await http.get(uri, headers: headers);
