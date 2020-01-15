@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:zomato_app/models/category.dart';
 import 'package:zomato_app/models/cuisine.dart';
 import 'package:zomato_app/models/restaurant.dart';
+import 'package:zomato_app/models/restaurant_item.dart';
 import 'package:zomato_app/utilities/networking.dart';
 
 class DatabaseService {
@@ -47,6 +48,33 @@ class DatabaseService {
 
       result.collections.forEach((item) {
         restaurants.add(item.collection);
+      });
+
+      return restaurants;
+    } else {
+      throw Exception("Failed getting restaurants");
+    }
+  }
+
+  static Future<List<RestaurantRestaurant>> findRestaurantsBy(
+      Map<String, dynamic> parameters) async {
+    final List<RestaurantRestaurant> restaurants = [];
+    var queryParams = await Networking.configureLocation();
+    final headers = Networking.configureHeaders();
+
+    parameters.forEach((key, value) {
+      queryParams[key] = value;
+    });
+
+    final uri = Networking.configureUri("/api/v2.1/search", queryParams);
+    final response = await http.get(uri, headers: headers);
+
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      final result = RestaurantItem.fromJson(responseJson);
+
+      result.restaurants.forEach((item) {
+        restaurants.add(item.restaurant);
       });
 
       return restaurants;

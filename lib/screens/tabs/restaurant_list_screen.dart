@@ -9,7 +9,9 @@ import 'package:zomato_app/providers/cuisine_provider.dart';
 import 'package:zomato_app/providers/restaurant_provider.dart';
 import 'package:zomato_app/screens/categories_screen.dart';
 import 'package:zomato_app/screens/cuisines_screen.dart';
+import 'package:zomato_app/screens/restaurant_item_screen.dart';
 import 'package:zomato_app/screens/restaurants_screen.dart';
+import 'package:zomato_app/screens/search/restaurants_cuisine_screen.dart';
 import 'package:zomato_app/widgets/image_widget.dart';
 import 'package:zomato_app/widgets/loading_widget.dart';
 
@@ -181,50 +183,62 @@ class RestaurantListScreen extends StatelessWidget {
   }
 
   Widget _buildRestaurantCell(Restaurant restaurant, BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Container(
-              width: 300,
-              margin: const EdgeInsets.only(right: 10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: ImageWidget(imageUrl: restaurant.imageUrl),
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, RestaurantItemScreen.routeName);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 300,
+                margin: const EdgeInsets.only(right: 10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: ImageWidget(imageUrl: restaurant.imageUrl),
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Text(restaurant.title, style: Theme.of(context).textTheme.subtitle),
-        SizedBox(height: 10),
-        Container(
-          width: 300,
-          child: Text(
-            restaurant.description,
-            style: Theme.of(context).textTheme.body1,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
+            ],
           ),
-        ),
-      ],
+          SizedBox(height: 10),
+          Text(restaurant.title, style: Theme.of(context).textTheme.subtitle),
+          SizedBox(height: 10),
+          Container(
+            width: 300,
+            child: Text(
+              restaurant.description,
+              style: Theme.of(context).textTheme.body1,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildCuisineCell(Cuisine cuisine, BuildContext context) {
-    return Container(
-      width: 140,
-      margin: const EdgeInsets.only(right: 10),
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text(
-          cuisine.cuisineName,
-          style: Theme.of(context).textTheme.button,
+    return InkWell(
+      onTap: () {
+        Provider.of<CuisineProvider>(context, listen: false)
+            .setCuisine(cuisine);
+        Navigator.pushNamed(context, RestaurantsCuisineScreen.routeName);
+      },
+      child: Container(
+        width: 140,
+        margin: const EdgeInsets.only(right: 10),
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: Text(
+            cuisine.cuisineName,
+            style: Theme.of(context).textTheme.button,
+          ),
         ),
       ),
     );

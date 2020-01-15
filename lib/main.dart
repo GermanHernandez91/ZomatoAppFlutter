@@ -7,7 +7,9 @@ import 'package:zomato_app/screens/categories_screen.dart';
 import 'package:zomato_app/screens/cuisines_screen.dart';
 import 'package:zomato_app/screens/main_screen.dart';
 import 'package:zomato_app/screens/onboarding_screen.dart';
+import 'package:zomato_app/screens/restaurant_item_screen.dart';
 import 'package:zomato_app/screens/restaurants_screen.dart';
+import 'package:zomato_app/screens/search/restaurants_cuisine_screen.dart';
 import 'package:zomato_app/screens/splash_screen.dart';
 import 'package:zomato_app/styles/theme.dart';
 
@@ -42,6 +44,9 @@ class MyApp extends StatelessWidget {
             CuisinesScreen.routeName: (_) => CuisinesScreen(),
             CategoriesScreen.routeName: (_) => CategoriesScreen(),
             RestaurantsScreen.routeName: (_) => RestaurantsScreen(),
+            RestaurantItemScreen.routeName: (_) => RestaurantItemScreen(),
+            RestaurantsCuisineScreen.routeName: (_) =>
+                RestaurantsCuisineScreen(),
           },
         ),
       ),
